@@ -1,19 +1,21 @@
-var CLOUD_WIDTH = 420;  // ширина облака
+'use strict';
+
+var CLOUD_WIDTH = 420; // ширина облака
 var CLOUD_HEIGHT = 270; // высота облака
-var CLOUD_X = 100;      // координата облака по оси X
-var CLOUD_Y = 10;       // координата облака по оси Y
-var GAP = 10;           // смещение
-var FONT_GAP = 50;      // смещение текста
-var TEXT_WIDTH = 80;    // ширина текста
-var BAR_HEIGHT = 220;   // макс высота столбца
-var BAR_WIDTH = 40;     // ширина столбца
+var CLOUD_X = 100; // координата облака по оси X
+var CLOUD_Y = 10; // координата облака по оси Y
+var GAP = 10; // смещение
+var FONT_GAP = 50; // смещение текста
+var TEXT_WIDTH = 80; // ширина текста
+var BAR_HEIGHT = 220; // макс высота столбца
+var BAR_WIDTH = 40; // ширина столбца
 
 // var barWidth = CLOUD_WIDTH - GAP - TEXT_WIDTH - GAP;
 
 function renderCloud(ctx, x, y, color) {
   ctx.fillStyle = color;
   ctx.fillRect(x, y, CLOUD_WIDTH, CLOUD_HEIGHT);
-};
+}
 
 function renderHistogram(ctx, names, times) {
   var textY = 100;
@@ -27,7 +29,7 @@ function renderHistogram(ctx, names, times) {
     if (names[i] === 'Вы') {
       ctx.fillStyle = 'rgba(255, 0, 0, 1)';
     } else {
-      ctx.fillStyle = 'rgba(0, 0, 255, ' + (Math.random() * (1 - 0.4) + 0.4) +')';
+      ctx.fillStyle = 'rgba(0, 0, 255, ' + (Math.random() * (1 - 0.4) + 0.4) + ')';
     }
 
     // рисуем столбец
@@ -38,7 +40,7 @@ function renderHistogram(ctx, names, times) {
 
     textY += FONT_GAP;
   }
-};
+}
 
 // получаем максимальное время игроков
 function getMaxElement(arr) {
@@ -51,19 +53,19 @@ function getMaxElement(arr) {
   }
 
   return Math.round(maxElement);
-};
+}
 
 // получаем время заданного игрока
 function getTimePlayer(arr, index) {
   return arr.length < 0 ? 0 : Math.round(arr[index]);
-};
+}
 
 // высчитывем и получем высоту столбца
 function getHeightColumn(arr, time) {
   return Math.round(BAR_HEIGHT * time / getMaxElement(arr));
-};
+}
 
-window.renderStatistics = function(ctx, names, times) {
+window.renderStatistics = function (ctx, names, times) {
   renderCloud(ctx, CLOUD_X + GAP, CLOUD_Y + GAP, 'rgba(0, 0, 0, 0.7)');
   renderCloud(ctx, CLOUD_X, CLOUD_Y, '#fff');
 
