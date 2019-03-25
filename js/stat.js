@@ -10,12 +10,12 @@ var BAR_WIDTH = 40;     // ширина столбца
 
 // var barWidth = CLOUD_WIDTH - GAP - TEXT_WIDTH - GAP;
 
-var renderCloud = function(ctx, x, y, color) {
+function renderCloud(ctx, x, y, color) {
   ctx.fillStyle = color;
   ctx.fillRect(x, y, CLOUD_WIDTH, CLOUD_HEIGHT);
 };
 
-var renderHistogram = function(ctx, names, times) {
+function renderHistogram(ctx, names, times) {
   var textY = 100;
 
   for (var i = 0; i < names.length; i++) {
@@ -27,7 +27,7 @@ var renderHistogram = function(ctx, names, times) {
     if (names[i] === 'Вы') {
       ctx.fillStyle = 'rgba(255, 0, 0, 1)';
     } else {
-      ctx.fillStyle = 'rgb(0, 0, 255, ' + (Math.random() * (1 - 0.4) + 0.4) +')';
+      ctx.fillStyle = 'rgba(0, 0, 255, ' + (Math.random() * (1 - 0.4) + 0.4) +')';
     }
 
     // рисуем столбец
@@ -41,26 +41,26 @@ var renderHistogram = function(ctx, names, times) {
 };
 
 // получаем максимальное время игроков
-var getMaxTime = function(times) {
-  var maxTime = times[0];
+function getMaxElement(arr) {
+  var maxElement = arr[0];
 
-  for (var i = 0; i < times.length; i++) {
-    if (maxTime < times[i]) {
-      maxTime = times[i];
+  for (var i = 0; i < arr.length; i++) {
+    if (maxElement < arr[i]) {
+      maxElement = arr[i];
     }
   }
 
-  return Math.round(maxTime);
+  return Math.round(maxElement);
 };
 
 // получаем время заданного игрока
-var getTimePlayer = function(times, index) {
-  return times.length < 0 ? 0 : Math.round(times[index]);
+function getTimePlayer(arr, index) {
+  return arr.length < 0 ? 0 : Math.round(arr[index]);
 };
 
-// получем высоту столбца
-var getHeightColumn = function(times, time) {
-  return Math.round(BAR_HEIGHT * time / getMaxTime(times));
+// высчитывем и получем высоту столбца
+function getHeightColumn(arr, time) {
+  return Math.round(BAR_HEIGHT * time / getMaxElement(arr));
 };
 
 window.renderStatistics = function(ctx, names, times) {
